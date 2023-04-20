@@ -29,13 +29,13 @@ public class Cookie {
 
         // while loop to loop through the file
         String reading = ""; //correct
-        int i = 0;
+        //int i = 0;
         while ((reading = br.readLine()) != null) {
 
             // read each cookie line and add into collection object
-            System.out.println(i + "cookie(s) loaded");
+            //System.out.println(i + "cookie(s) loaded");
             cookieInspos.add(reading); //correct
-            i++;
+            //i++;
             //no need to have extra br.readline it's already running in for-loop
         }
 

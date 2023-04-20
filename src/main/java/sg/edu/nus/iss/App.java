@@ -16,12 +16,10 @@ import java.net.Socket;
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args ) throws IOException
-    {
-        //2 arguments
-        //1 for file 1 for starting server port 
+public class App {
+    public static void main(String[] args) throws IOException {
+        // 2 arguments
+        // 1 for file 1 for starting server port
         String fileName = args[0];
         String port = args[1];
 
@@ -33,41 +31,51 @@ public class App
             System.out.println("Fortune Cookie found. Preparing fortunes for dispensing.");
         }
 
-        Cookie cooks = new Cookie();
-        cooks.cookieRead(fileName); // use the fileName for this function
-        String fortune = cooks.getRandomCookie();
-        System.out.println(fortune);
-
         ServerSocket server = new ServerSocket(Integer.parseInt(port));
         Socket socket = server.accept();
 
-        //allows server to read and write over comms channel
+        // allows server to read and write over comms channel
         try (InputStream is = socket.getInputStream()) {
-            BufferedInputStream bis = new BufferedInputStream (is);
-            DataInputStream disNuts = new DataInputStream (bis);
+            BufferedInputStream bis = new BufferedInputStream(is);
+            DataInputStream disNuts = new DataInputStream(bis);
 
-            //stores data sent over from client like commands and stuff
-            //this particular command can be outside the server code nest also
+            // stores data sent over from client like commands and stuff
+            // this particular command can be outside the server code nest also
             String clientMSG = "";
 
-            try(OutputStream os = socket.getOutputStream()) {
-                BufferedOutputStream bos = new BufferedOutputStream (os);
-                DataOutputStream dos = new DataOutputStream (bos);
-                
+            try (OutputStream os = socket.getOutputStream()) {
+                BufferedOutputStream bos = new BufferedOutputStream(os);
+                DataOutputStream dos = new DataOutputStream(bos);
 
-                //code here will deal with sending and receiving
+                // code here will deal with sending and receiving
                 while (!clientMSG.equals("close")) {
-                    //receiving message
+                    // receiving message
                     clientMSG = disNuts.readUTF();
-                    if (clientMSG.equals("get-cookie")) {
-                        //instantiate cookie.java 
-                        //deliver the inspo
-                        //send the cookie to client side with data output
-                    }   dos.writeUTF("What you want");
+
+                    if (clientMSG.equals("2")) {
+                        // instantiate cookie.java
+                        Cookie cooks = new Cookie();
+                        cooks.cookieRead(fileName); // use the fileName for this function
+
+                        // deliver the inspo
+                        String fortune = cooks.getRandomCookie();
+                        //System.out.println(fortune);
+
+                        // send the cookie to client side with data output
+                        System.out.println("Sending random fortune...");
+                        dos.writeUTF(fortune);
                         dos.flush();
+
+                    } else if (clientMSG.equals("0")){
+                        dos.writeUTF("Please pay $2 or kindly f- off this is a business");
+                        dos.flush();
+                    } else {
+                        dos.writeUTF("WTF are you trying to do");
+                        dos.flush();
+                    }
                 }
 
-                //closes all output streams in reverse order
+                // closes all output streams in reverse order
                 dos.close();
                 bos.close();
                 os.close();
@@ -75,7 +83,7 @@ public class App
             } catch (EOFException ex) {
                 ex.printStackTrace();
             }
-            //closes all input streams in reverse order
+            // closes all input streams in reverse order
             disNuts.close();
             bis.close();
             is.close();
@@ -84,6 +92,5 @@ public class App
             socket.close();
         }
 
-
-    }  
+    }
 }
