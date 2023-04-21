@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.lang.Math;
 
-public class Cookie {
+public class Cookie //now a freestyle concept training randomiser {
 
     List<String> cookieInspos = null;
 
@@ -39,7 +39,7 @@ public class Cookie {
             //no need to have extra br.readline it's already running in for-loop
         }
 
-        System.out.println("Cookies loaded and ready to crumble");
+        System.out.println("Training syllabus loaded. Ready to sweat.");
 
         // close the readers
         br.close();

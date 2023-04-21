@@ -25,10 +25,10 @@ public class App {
 
         File fortuneCookie = new File(fileName);
         if (!fortuneCookie.exists()) {
-            System.out.println("Cookies not found. Please go exercise instead.");
+            System.out.println("Syllabus not found. Please go pay for a course first.");
             System.exit(0);
         } else {
-            System.out.println("Fortune Cookie found. Preparing fortunes for dispensing.");
+            System.out.println("Training syllabus found. Time to stop being shit.");
         }
 
         ServerSocket server = new ServerSocket(Integer.parseInt(port));
@@ -62,7 +62,7 @@ public class App {
                         //System.out.println(fortune);
 
                         // send the cookie to client side with data output
-                        System.out.println("Sending random fortune...");
+                        System.out.println("Telling them what to train today...");
                         dos.writeUTF(fortune);
                         dos.flush();
 
