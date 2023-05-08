@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.lang.Math;
 
-public class Cookie //now a freestyle concept training randomiser {
+public class Cookie { //now a freestyle concept training randomiser 
 
     List<String> cookieInspos = null;
 
